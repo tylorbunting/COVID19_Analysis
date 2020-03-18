@@ -1,0 +1,141 @@
+---
+title: "COVID-19 Australia"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library("flexdashboard")
+library("plotly")
+source("Extract_Data.R")
+
+```
+
+
+Australian Overview
+===================================== 
+
+Column {data-width=850}
+-----------------------------------------------------------------------
+
+### Confirmed cases overtime {.no-title}
+
+```{r}
+
+ggplotly(ggplot(Data_Australia_Co) +
+  aes(x = Dates, fill = Location, weight = Count) +
+  geom_bar(position = "dodge") +
+  scale_fill_hue() +
+  theme_minimal() +
+  labs(title = paste0("Confirmed cases overtime (", max(Data_Australia_Co$Dates), ")"), x = "", y = "") +
+  theme(legend.position = "none") +
+  facet_wrap(vars(Location)))
+
+
+```
+
+
+### Total number of confirmed cases {.no-title}
+
+```{r}
+
+ggplotly(ggplot(Data_Australia_Max_Locations_Co, aes(x = Location, y = Count, fill = Location)) +
+    geom_bar(stat = "identity") +
+    scale_fill_hue() +
+    theme_minimal() +
+    labs(title = paste0("Total number of confirmed cases (", max(Data_Australia_Co$Dates),")"), x = "", y = "") +
+    theme(legend.position = "none") +
+    geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 7))
+  
+
+```
+
+Column {data-width=150}
+-----------------------------------------------------------------------
+
+### Confirmed
+
+```{r}
+valueBox(sum(Data_Australia_Max_Locations_Co$Count), 
+         icon = "fa-frown-o",
+         color = "primary")
+
+```
+
+
+### Recovered
+
+```{r}
+valueBox(sum(Data_Australia_Max_Locations_Re$Count), 
+         icon = "fa-medkit",
+         color = "success")
+
+```
+
+### Deaths
+
+```{r}
+valueBox(sum(Data_Australia_Max_Locations_De$Count), 
+         icon = "fa-times-circle",
+         color = "danger")
+```
+
+
+Country Comparison
+===================================== 
+
+
+Column {data-width=850}
+-----------------------------------------------------------------------
+
+### Australia & Itally {.no-title}
+
+```{r}
+
+```
+
+### Australia & China {.no-title}
+
+```{r}
+
+```
+
+
+### Australia & Japan {.no-title}
+
+```{r}
+
+```
+
+
+Column {data-width=150}
+-----------------------------------------------------------------------
+
+### Confirmed
+
+```{r}
+valueBox(sum(Data_Australia_Max_Locations_Co$Count), 
+         icon = "fa-frown-o",
+         color = "primary")
+
+```
+
+
+### Recovered
+
+```{r}
+valueBox(sum(Data_Australia_Max_Locations_Re$Count), 
+         icon = "fa-medkit",
+         color = "success")
+
+```
+
+### Deaths
+
+```{r}
+valueBox(sum(Data_Australia_Max_Locations_De$Count), 
+         icon = "fa-times-circle",
+         color = "danger")
+```
