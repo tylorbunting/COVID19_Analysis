@@ -74,6 +74,13 @@ Row {data-height=350 .tabset .tabset-fade}
 
 ```{r}
 
+Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
+      filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
+
 ggplotly(Data_Australia_Max_Locations_Co %>%
     ggplot(aes(x = Location, y = Count, fill = Location)) +
     geom_bar(stat = "identity") +
@@ -83,7 +90,7 @@ ggplotly(Data_Australia_Max_Locations_Co %>%
     theme(legend.position = "none") +
     geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 20) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
-    scale_fill_brewer(palette="Blues"))
+    scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
   
 
 ```
@@ -92,6 +99,13 @@ ggplotly(Data_Australia_Max_Locations_Co %>%
 ### Total Number of Recoverd Cases 
 
 ```{r}
+
+Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Australia_Max_Locations_Re <- Data_Australia_Max_Locations_Re %>%
+      filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
 
 ggplotly(Data_Australia_Max_Locations_Re %>%
     ggplot(aes(x = Location, y = Count, fill = Location)) +
@@ -102,7 +116,7 @@ ggplotly(Data_Australia_Max_Locations_Re %>%
     theme(legend.position = "none") +
     geom_text(label = Data_Australia_Max_Locations_Re$Count, nudge_y = 20) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
-    scale_fill_brewer(palette="Greens"))
+    scale_fill_manual(values = brewer.pal(9, "Greens")[3:9]))
   
 
 ```
@@ -111,6 +125,13 @@ ggplotly(Data_Australia_Max_Locations_Re %>%
 ### Total Number of Cases Resulted in Death 
 
 ```{r}
+
+Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Australia_Max_Locations_De <- Data_Australia_Max_Locations_De %>%
+      filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
 
 ggplotly(Data_Australia_Max_Locations_De %>%
     ggplot(aes(x = Location, y = Count, fill = Location)) +
@@ -133,6 +154,13 @@ Row {data-height=550}
 
 ```{r}
 
+Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Australia_Co <- Data_Australia_Co %>%
+      filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
+
 ggplotly(Data_Australia_Co %>%
   ggplot(aes(x = Dates, fill = Location, weight = Count)) +
   geom_bar(position = "dodge") +
@@ -141,7 +169,7 @@ ggplotly(Data_Australia_Co %>%
   labs(title = "", x = "", y = "") +
   theme(legend.position = "none") +
   facet_wrap(vars(Location)) +
-  scale_fill_brewer(palette="Blues"))
+  scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
 
 
 ```
@@ -150,6 +178,13 @@ ggplotly(Data_Australia_Co %>%
 ### Confirmed Cases Overtime {.mobile}
 
 ```{r}
+
+Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Australia_Co <- Data_Australia_Co %>%
+      filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
 
 ggplotly(Data_Australia_Co %>%
             ggplot(aes(x = Dates, fill = Location, weight = Count)) +
@@ -160,14 +195,10 @@ ggplotly(Data_Australia_Co %>%
             theme(legend.position = "none") +
             facet_wrap(vars(Location)) +
             scale_x_date(date_breaks = "1 months", date_labels = "%b") +
-            scale_fill_brewer(palette="Blues"))
+            scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
 
 
 ```
-
-
-
-
 
 
 
@@ -374,17 +405,4 @@ ggplotly(Data_Global_De %>%
 
 ```
 
-
-Country Comparison
-===================================== 
-
-
-Row 
------------------------------------------------------------------------
-
-### coming soon...
-
-```{r}
-
-```
 
