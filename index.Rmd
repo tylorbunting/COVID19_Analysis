@@ -1,5 +1,5 @@
 ---
-title: "COVID-19 Australia"
+title: "COVID-19 Analysis"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
@@ -19,6 +19,9 @@ library("purrr")
 library("RColorBrewer")
 source("Extract_Data.R")
 
+No_of_Countrys <- 6
+
+
 ```
 
 
@@ -28,7 +31,7 @@ Australian Overview
 Row {data-height=150}
 -----------------------------------------------------------------------
 
-### Australian Confirmed
+### Confirmed
 
 ```{r}
 valueBox(sum(Data_Australia_Max_Locations_Co$Count), 
@@ -38,7 +41,7 @@ valueBox(sum(Data_Australia_Max_Locations_Co$Count),
 ```
 
 
-### Australian Recovered
+### Recovered
 
 ```{r}
 valueBox(sum(Data_Australia_Max_Locations_Re$Count), 
@@ -47,7 +50,7 @@ valueBox(sum(Data_Australia_Max_Locations_Re$Count),
 
 ```
 
-### Australian Deaths
+### Deaths
 
 ```{r}
 valueBox(sum(Data_Australia_Max_Locations_De$Count), 
@@ -55,16 +58,16 @@ valueBox(sum(Data_Australia_Max_Locations_De$Count),
          color = "danger")
 ```
 
-### Australian Data Last Updated
+### Last Updated
 
 ```{r}
-valueBox(max(Data_Australia$Dates), 
+valueBox(format(max(Data_Australia$Dates), "%b %d"), 
          icon = "fa-clock",
          color = "primary")
 ```
 
 
-Row {data-height=350}
+Row {data-height=350 .tabset .tabset-fade}
 -----------------------------------------------------------------------
 
 ### Total Number of Confirmed Cases 
@@ -78,17 +81,55 @@ ggplotly(Data_Australia_Max_Locations_Co %>%
     theme_minimal() +
     labs(title = "", x = "", y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 10) +
+    geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 20) +
+    scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
     scale_fill_brewer(palette="Blues"))
   
 
 ```
 
 
+### Total Number of Recoverd Cases 
+
+```{r}
+
+ggplotly(Data_Australia_Max_Locations_Re %>%
+    ggplot(aes(x = Location, y = Count, fill = Location)) +
+    geom_bar(stat = "identity") +
+    scale_fill_hue() +
+    theme_minimal() +
+    labs(title = "", x = "", y = "") +
+    theme(legend.position = "none") +
+    geom_text(label = Data_Australia_Max_Locations_Re$Count, nudge_y = 20) +
+    scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
+    scale_fill_brewer(palette="Greens"))
+  
+
+```
+
+
+### Total Number of Cases Resulted in Death 
+
+```{r}
+
+ggplotly(Data_Australia_Max_Locations_De %>%
+    ggplot(aes(x = Location, y = Count, fill = Location)) +
+    geom_bar(stat = "identity") +
+    scale_fill_hue() +
+    theme_minimal() +
+    labs(title = "", x = "", y = "") +
+    theme(legend.position = "none") +
+    geom_text(label = Data_Australia_Max_Locations_De$Count, nudge_y = 20) +
+    scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
+    scale_fill_brewer(palette="Reds"))
+  
+
+```
+
 Row {data-height=550}
 -----------------------------------------------------------------------
 
-### Confirmed Cases Overtime 
+### Confirmed Cases Overtime {.no-mobile}
 
 ```{r}
 
@@ -118,8 +159,217 @@ ggplotly(Data_Australia_Co %>%
             labs(title = "", x = "", y = "") +
             theme(legend.position = "none") +
             facet_wrap(vars(Location)) +
-            scale_x_date(date_breaks = "1 months", date_labels = "%b %d") +
+            scale_x_date(date_breaks = "1 months", date_labels = "%b") +
             scale_fill_brewer(palette="Blues"))
+
+
+```
+
+
+
+
+
+
+
+Global Overview
+===================================== 
+
+
+Row {data-height=150}
+-----------------------------------------------------------------------
+
+### Confirmed
+
+```{r}
+
+valueBox(sum(Data_Global_Max_Country_Co$Count), 
+         icon = "fa-frown-o",
+         color = "primary")
+
+```
+
+
+### Recovered
+
+```{r}
+
+
+valueBox(sum(Data_Global_Max_Country_Re$Count), 
+         icon = "fa-medkit",
+         color = "success")
+
+```
+
+### Deaths
+
+```{r}
+valueBox(sum(Data_Global_Max_Country_De$Count), 
+         icon = "fa-times-circle",
+         color = "danger")
+```
+
+### Last Updated
+
+```{r}
+valueBox(format(max(Data_Global$Dates), "%b %d"), 
+         icon = "fa-clock",
+         color = "primary")
+```
+
+
+Row {data-height=350 .tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Total Number of Confirmed Cases 
+
+```{r}
+
+Data_Global_Max_Country_Co <- Data_Global_Max_Country_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+ggplotly(Data_Global_Max_Country_Co %>%
+    ggplot(aes(x = Country, y = Count, fill = Country)) +
+    geom_bar(stat = "identity") +
+    scale_fill_hue() +
+    theme_minimal() +
+    labs(title = "", x = "", y = "") +
+    theme(legend.position = "none") +
+    geom_text(label = Data_Global_Max_Country_Co$Count, nudge_y = 5000) +
+    scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
+    scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
+
+```
+
+
+### Total Number of Recoverd Cases 
+
+```{r}
+
+Data_Global_Max_Country_Co <- Data_Global_Max_Country_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Global_Max_Country_Re <- Data_Global_Max_Country_Re %>%
+      filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
+
+ggplotly(Data_Global_Max_Country_Re %>%
+    ggplot(aes(x = Country, y = Count, fill = Country)) +
+    geom_bar(stat = "identity") +
+    scale_fill_hue() +
+    theme_minimal() +
+    labs(title = "", x = "", y = "") +
+    theme(legend.position = "none") +
+    geom_text(label = Data_Global_Max_Country_Re$Count, nudge_y = 5000) +
+    scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
+    scale_fill_manual(values = brewer.pal(9, "Greens")[3:9]))
+  
+
+```
+
+
+### Total Number of Cases Resulted in Death 
+
+```{r}
+
+
+Data_Global_Max_Country_Co <- Data_Global_Max_Country_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Global_Max_Country_De <- Data_Global_Max_Country_De %>%
+      filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
+
+ggplotly(Data_Global_Max_Country_De %>%
+    ggplot(aes(x = Country, y = Count, fill = Country)) +
+    geom_bar(stat = "identity") +
+    scale_fill_hue() +
+    theme_minimal() +
+    labs(title = "", x = "", y = "") +
+    theme(legend.position = "none") +
+    geom_text(label = Data_Global_Max_Country_De$Count, nudge_y = 5000) +
+    scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
+    scale_fill_brewer(palette="Reds"))
+  
+
+```
+
+Row {data-height=550 .tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Confirmed Cases Overtime
+
+```{r}
+
+Data_Global_Max_Country_Co <- Data_Global_Max_Country_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Global_Co <- Data_Global_Co %>%
+      filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
+
+ggplotly(Data_Global_Co %>%
+            ggplot(aes(x = Dates, fill = Country, weight = Count)) +
+            geom_bar(position = "dodge") +
+            scale_fill_hue() +
+            theme_minimal() +
+            labs(title = "", x = "", y = "") +
+            theme(legend.position = "none") +
+            facet_wrap(vars(Country)) +
+            scale_x_date(date_breaks = "1 months", date_labels = "%b") +
+            scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
+
+
+```
+
+
+### Recovered Cases Overtime
+
+```{r}
+
+Data_Global_Max_Country_Co <- Data_Global_Max_Country_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Global_Re <- Data_Global_Re %>%
+      filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
+
+ggplotly(Data_Global_Re %>%
+            ggplot(aes(x = Dates, fill = Country, weight = Count)) +
+            geom_bar(position = "dodge") +
+            scale_fill_hue() +
+            theme_minimal() +
+            labs(title = "", x = "", y = "") +
+            theme(legend.position = "none") +
+            facet_wrap(vars(Country)) +
+            scale_x_date(date_breaks = "1 months", date_labels = "%b") +
+            scale_fill_manual(values = brewer.pal(9, "Greens")[3:9]))
+
+
+```
+
+
+### Death Cases Overtime
+
+```{r}
+
+Data_Global_Max_Country_Co <- Data_Global_Max_Country_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Global_De <- Data_Global_De %>%
+      filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
+
+ggplotly(Data_Global_De %>%
+            ggplot(aes(x = Dates, fill = Country, weight = Count)) +
+            geom_bar(position = "dodge") +
+            scale_fill_hue() +
+            theme_minimal() +
+            labs(title = "", x = "", y = "") +
+            theme(legend.position = "none") +
+            facet_wrap(vars(Country)) +
+            scale_x_date(date_breaks = "1 months", date_labels = "%b") +
+            scale_fill_brewer(palette="Reds"))
 
 
 ```
@@ -132,27 +382,7 @@ Country Comparison
 Row 
 -----------------------------------------------------------------------
 
-### Australia & Itally (coming soon)
-
-```{r}
-
-```
-
-
-Row 
------------------------------------------------------------------------
-
-### Australia & China (coming soon)
-
-```{r}
-
-```
-
-
-Row 
------------------------------------------------------------------------
-
-### Australia & Japan (coming soon)
+### coming soon...
 
 ```{r}
 

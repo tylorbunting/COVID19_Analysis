@@ -16,7 +16,14 @@ Get_Max_Locations <- function(local, data_table) {
   summarise(Count = max(Count))
 }
 
-
+# create functions
+Get_Total_Country <- function(local, data_table) {
+  data_table %>%
+    filter(Country == local) %>%
+    group_by(Country, Location) %>%
+    summarise(Count = max(Count)) %>%
+    summarise(Count = sum(Count))
+}
 
 
 
@@ -60,6 +67,9 @@ Data$Case_Type <- as.factor(Data$Case_Type)
 
 
 # 3. CREATE FINAL TABLES FOR VISUALISATION --------------------------------
+
+# 3.1 AUSTRALIAN TABLES ---------------------------------------------------
+
 Data_Australia <- Data %>%
   filter(Country == "Australia") %>%
   mutate(Location = if_else(Location == "Queensland", "QLD", 
@@ -87,6 +97,28 @@ Data_Australia_Max_Locations_Co <- map_df(unique(Data_Australia_Co$Location), Ge
 Data_Australia_Max_Locations_Re <- map_df(unique(Data_Australia_Re$Location), Get_Max_Locations, data_table = Data_Australia_Re)
 
 Data_Australia_Max_Locations_De <- map_df(unique(Data_Australia_De$Location), Get_Max_Locations, data_table = Data_Australia_De)
+
+
+# 3.2 GLOBAL TABLES -------------------------------------------------------
+
+Data_Global <- Data 
+
+Data_Global_Co <- Data_Global %>%
+  filter(Case_Type == "Confirmed")
+
+Data_Global_Re <- Data_Global %>%
+  filter(Case_Type == "Recovered")
+
+Data_Global_De <- Data_Global %>%
+  filter(Case_Type == "Deaths")
+
+Data_Global_Max_Country_Co <- map_df(unique(Data_Global_Co$Country), Get_Total_Country, data_table = Data_Global_Co)
+
+Data_Global_Max_Country_Re <- map_df(unique(Data_Global_Re$Country), Get_Total_Country, data_table = Data_Global_Re)
+
+Data_Global_Max_Country_De <- map_df(unique(Data_Global_De$Country), Get_Total_Country, data_table = Data_Global_De)
+
+
 
 # CLEAN UP ENVIRONMENT ----------------------------------------------------
 
