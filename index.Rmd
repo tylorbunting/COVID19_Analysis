@@ -22,10 +22,6 @@ source("Extract_Data.R")
 ```
 
 
-Information {.sidebar}
-=====================================
-
-
 Australian Overview
 ===================================== 
 
@@ -75,7 +71,8 @@ Row {data-height=350}
 
 ```{r}
 
-ggplotly(ggplot(Data_Australia_Max_Locations_Co, aes(x = Location, y = Count, fill = Location)) +
+ggplotly(Data_Australia_Max_Locations_Co %>%
+    ggplot(aes(x = Location, y = Count, fill = Location)) +
     geom_bar(stat = "identity") +
     scale_fill_hue() +
     theme_minimal() +
@@ -95,8 +92,8 @@ Row {data-height=550}
 
 ```{r}
 
-ggplotly(ggplot(Data_Australia_Co) +
-  aes(x = Dates, fill = Location, weight = Count) +
+ggplotly(Data_Australia_Co %>%
+  ggplot(aes(x = Dates, fill = Location, weight = Count)) +
   geom_bar(position = "dodge") +
   scale_fill_hue() +
   theme_minimal() +
@@ -108,6 +105,24 @@ ggplotly(ggplot(Data_Australia_Co) +
 
 ```
 
+
+### Confirmed Cases Overtime {.mobile}
+
+```{r}
+
+ggplotly(Data_Australia_Co %>%
+            ggplot(aes(x = Dates, fill = Location, weight = Count)) +
+            geom_bar(position = "dodge") +
+            scale_fill_hue() +
+            theme_minimal() +
+            labs(title = "", x = "", y = "") +
+            theme(legend.position = "none") +
+            facet_wrap(vars(Location)) +
+            scale_x_date(date_breaks = "1 months", date_labels = "%b %d") +
+            scale_fill_brewer(palette="Blues"))
+
+
+```
 
 
 Country Comparison

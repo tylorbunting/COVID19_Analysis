@@ -62,7 +62,16 @@ Data$Case_Type <- as.factor(Data$Case_Type)
 # 3. CREATE FINAL TABLES FOR VISUALISATION --------------------------------
 Data_Australia <- Data %>%
   filter(Country == "Australia") %>%
-  filter(!Location %in% c("From Diamond Princess", "Northern Territory", "Tasmania")) 
+  mutate(Location = if_else(Location == "Queensland", "QLD", 
+                            if_else(Location == "New South Wales", "NSW", 
+                                    if_else(Location == "Victoria", "VIC",
+                                            if_else(Location == "South Australia", "SA",
+                                                    if_else(Location == "Western Australia", "WA",
+                                                            if_else(Location == "Australian Capital Territory", "ACT",
+                                                                    if_else(Location == "From Diamond Princess", "DPC",
+                                                                            if_else(Location == "Northern Territory", "NT",
+                                                                                    if_else(Location == "Tasmania", "TAS",
+                                                                                            Location))))))))))
 
 Data_Australia_Co <- Data_Australia %>%
   filter(Case_Type == "Confirmed")
