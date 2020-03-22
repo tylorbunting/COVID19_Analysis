@@ -5,8 +5,9 @@ output:
     orientation: rows
     vertical_layout: fill
     navbar:
-      - {title: "LinkedIn", icon: "fa-linkedin", align: right, href: "https://github.com/tylorbunting/COVID19_Analysis"}
+      - {title: "LinkedIn", icon: "fa-linkedin", align: right, href: "https://www.linkedin.com/in/tylorbunting/"}
       - {title: "Source Code", icon: "fa-github", align: right, href: "https://github.com/tylorbunting/COVID19_Analysis"}
+      - {title: "Data Source", icon: "fa-database", align: right, href: "https://github.com/CSSEGISandData/COVID-19"}
 ---
 
 ```{r setup, include=FALSE}
@@ -89,7 +90,7 @@ ggplotly(Data_Australia_Max_Locations_Co %>%
     geom_bar(stat = "identity") +
     scale_fill_hue() +
     theme_minimal() +
-    labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Locations in Australia"), y = "") +
+    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
     geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 20) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
@@ -115,7 +116,7 @@ ggplotly(Data_Australia_Max_Locations_Re %>%
     geom_bar(stat = "identity") +
     scale_fill_hue() +
     theme_minimal() +
-    labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Locations in Australia"), y = "") +
+    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
     geom_text(label = Data_Australia_Max_Locations_Re$Count, nudge_y = 20) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
@@ -141,7 +142,7 @@ ggplotly(Data_Australia_Max_Locations_De %>%
     geom_bar(stat = "identity") +
     scale_fill_hue() +
     theme_minimal() +
-    labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Locations in Australia"), y = "") +
+    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
     geom_text(label = Data_Australia_Max_Locations_De$Count, nudge_y = 20) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
@@ -169,7 +170,7 @@ ggplotly(Data_Australia_Co %>%
   geom_bar(position = "dodge") +
   scale_fill_hue() +
   theme_minimal() +
-  labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Locations in Australia"), y = "") +
+  labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
   theme(legend.position = "none") +
   facet_wrap(vars(Location)) +
   scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
@@ -194,7 +195,7 @@ ggplotly(Data_Australia_Co %>%
             geom_bar(position = "dodge") +
             scale_fill_hue() +
             theme_minimal() +
-            labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Locations in Australia"), y = "") +
+            labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
             theme(legend.position = "none") +
             facet_wrap(vars(Location)) +
             scale_x_date(date_breaks = "1 months", date_labels = "%b") +
@@ -267,7 +268,7 @@ ggplotly(Data_Global_Max_Country_Co %>%
     geom_bar(stat = "identity") +
     scale_fill_hue() +
     theme_minimal() +
-    labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Countries Globally"), y = "") +
+    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
     theme(legend.position = "none") +
     geom_text(label = Data_Global_Max_Country_Co$Count, nudge_y = 5000) +
     scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
@@ -292,7 +293,7 @@ ggplotly(Data_Global_Max_Country_Re %>%
     geom_bar(stat = "identity") +
     scale_fill_hue() +
     theme_minimal() +
-    labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Countries Globally"), y = "") +
+    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
     theme(legend.position = "none") +
     geom_text(label = Data_Global_Max_Country_Re$Count, nudge_y = 5000) +
     scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
@@ -319,7 +320,7 @@ ggplotly(Data_Global_Max_Country_De %>%
     geom_bar(stat = "identity") +
     scale_fill_hue() +
     theme_minimal() +
-    labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Countries Globally"), y = "") +
+    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
     theme(legend.position = "none") +
     geom_text(label = Data_Global_Max_Country_De$Count, nudge_y = 5000) +
     scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
@@ -347,7 +348,7 @@ ggplotly(Data_Global_Co %>%
             geom_bar(position = "dodge") +
             scale_fill_hue() +
             theme_minimal() +
-            labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Countries Globally"), y = "") +
+            labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
             theme(legend.position = "none") +
             facet_wrap(vars(Country)) +
             scale_x_date(date_breaks = "1 months", date_labels = "%b") +
@@ -373,7 +374,7 @@ ggplotly(Data_Global_Re %>%
             geom_bar(position = "dodge") +
             scale_fill_hue() +
             theme_minimal() +
-            labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Countries Globally"), y = "") +
+            labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
             theme(legend.position = "none") +
             facet_wrap(vars(Country)) +
             scale_x_date(date_breaks = "1 months", date_labels = "%b") +
@@ -399,7 +400,7 @@ ggplotly(Data_Global_De %>%
             geom_bar(position = "dodge") +
             scale_fill_hue() +
             theme_minimal() +
-            labs(title = "", x = paste0("Top ", No_of_Countrys," Highests Countries Globally"), y = "") +
+            labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
             theme(legend.position = "none") +
             facet_wrap(vars(Country)) +
             scale_x_date(date_breaks = "1 months", date_labels = "%b") +
