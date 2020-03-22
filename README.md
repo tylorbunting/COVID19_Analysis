@@ -1,5 +1,5 @@
 # COVID19_Analysis
-This project aims to provide a view on Australia's COVID-19 position. The data is sourced from the John Hopkins Center for Systems Science and Engineering (CSSE) Respository (https://github.com/CSSEGISandData/COVID-19).
+This project aims to provide a view on Australia's COVID-19 position via an Interactive Dashboard. The Interactive Dashboard can be accessed via mobile or desktop from http://tylorbunting.com/COVID19_Analysis/ and the data is sourced from the John Hopkins Center for Systems Science and Engineering (CSSE) Github Respository https://github.com/CSSEGISandData/COVID-19.
 
 **Inspiration:** 
 - John Hopkins Dashboard (desktop): https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
