@@ -173,7 +173,11 @@ ggplotly(Data_Australia_Co %>%
   labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
   theme(legend.position = "none") +
   facet_wrap(vars(Location)) +
-  scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
+  scale_fill_manual(values = brewer.pal(9, "Blues")[3:9])) %>%
+  style(
+    hovertemplate = "Date: %{x:} <br>Count: %{y}",
+    hoverinfo = "hovertemplate"
+    )
 
 
 ```
