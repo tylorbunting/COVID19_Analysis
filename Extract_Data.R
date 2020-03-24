@@ -13,6 +13,7 @@ Get_Max_Locations <- function(local, data_table) {
   data_table %>%
   filter(Location == local) %>%
   group_by(Location) %>%
+  na.omit() %>%
   summarise(Count = max(Count))
 }
 

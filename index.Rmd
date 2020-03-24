@@ -221,7 +221,7 @@ Row {data-height=150}
 
 ```{r}
 
-valueBox(sum(Data_Global_Max_Country_Co$Count), 
+valueBox(sum(Data_Global_Max_Country_Co$Count, na.rm = TRUE), 
          icon = "fa-frown-o",
          color = "primary")
 
@@ -233,7 +233,7 @@ valueBox(sum(Data_Global_Max_Country_Co$Count),
 ```{r}
 
 
-valueBox(sum(Data_Global_Max_Country_Re$Count), 
+valueBox(sum(Data_Global_Max_Country_Re$Count, na.rm = TRUE), 
          icon = "fa-medkit",
          color = "success")
 
@@ -242,7 +242,7 @@ valueBox(sum(Data_Global_Max_Country_Re$Count),
 ### Deaths
 
 ```{r}
-valueBox(sum(Data_Global_Max_Country_De$Count), 
+valueBox(sum(Data_Global_Max_Country_De$Count, na.rm = TRUE), 
          icon = "fa-times-circle",
          color = "danger")
 ```
