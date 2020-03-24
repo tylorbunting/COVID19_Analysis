@@ -166,18 +166,14 @@ Data_Australia_Co <- Data_Australia_Co %>%
       filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
 
 ggplotly(Data_Australia_Co %>%
-  ggplot(aes(x = Dates, fill = Location, weight = Count)) +
-  geom_bar(position = "dodge") +
-  scale_fill_hue() +
-  theme_minimal() +
-  labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
-  theme(legend.position = "none") +
-  facet_wrap(vars(Location)) +
-  scale_fill_manual(values = brewer.pal(9, "Blues")[3:9])) %>%
-  style(
-    hovertemplate = "Date: %{x:} <br>Count: %{y}",
-    hoverinfo = "hovertemplate"
-    )
+          ggplot(aes(x = Dates, y = Count, fill = Location)) +
+          geom_area(size = 1L) +
+          scale_fill_hue() +
+          theme_minimal() +
+          labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
+          theme(legend.position = "none") +
+          facet_wrap(vars(Location)) +
+          scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
 
 
 ```
@@ -195,15 +191,14 @@ Data_Australia_Co <- Data_Australia_Co %>%
       filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
 
 ggplotly(Data_Australia_Co %>%
-            ggplot(aes(x = Dates, fill = Location, weight = Count)) +
-            geom_bar(position = "dodge") +
-            scale_fill_hue() +
-            theme_minimal() +
-            labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
-            theme(legend.position = "none") +
-            facet_wrap(vars(Location)) +
-            scale_x_date(date_breaks = "1 months", date_labels = "%b") +
-            scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
+                    ggplot(aes(x = Dates, y = Count, fill = Location)) +
+                    geom_area(size = 1L) +
+                    scale_fill_hue() +
+                    theme_minimal() +
+                    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
+                    theme(legend.position = "none") +
+                    facet_wrap(vars(Location)) +
+                    scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
 
 
 ```
@@ -348,8 +343,10 @@ Data_Global_Co <- Data_Global_Co %>%
       filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
 
 ggplotly(Data_Global_Co %>%
-            ggplot(aes(x = Dates, fill = Country, weight = Count)) +
-            geom_bar(position = "dodge") +
+           group_by(Country, Dates) %>%
+           summarise(Count = sum(Count)) %>%
+            ggplot(aes(x = Dates, y = Count, fill = Country)) +
+            geom_area(size = 1L) +
             scale_fill_hue() +
             theme_minimal() +
             labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
@@ -374,8 +371,10 @@ Data_Global_Re <- Data_Global_Re %>%
       filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
 
 ggplotly(Data_Global_Re %>%
-            ggplot(aes(x = Dates, fill = Country, weight = Count)) +
-            geom_bar(position = "dodge") +
+            group_by(Country, Dates) %>%
+            summarise(Count = sum(Count)) %>%
+            ggplot(aes(x = Dates, y = Count, fill = Country)) +
+            geom_area(size = 1L) +
             scale_fill_hue() +
             theme_minimal() +
             labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
@@ -400,8 +399,10 @@ Data_Global_De <- Data_Global_De %>%
       filter(Country %in% unique(Data_Global_Max_Country_Co$Country))
 
 ggplotly(Data_Global_De %>%
-            ggplot(aes(x = Dates, fill = Country, weight = Count)) +
-            geom_bar(position = "dodge") +
+            group_by(Country, Dates) %>%
+            summarise(Count = sum(Count)) %>%            
+            ggplot(aes(x = Dates, y = Count, fill = Country)) +
+            geom_area(size = 1L) +
             scale_fill_hue() +
             theme_minimal() +
             labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
@@ -409,6 +410,8 @@ ggplotly(Data_Global_De %>%
             facet_wrap(vars(Country)) +
             scale_x_date(date_breaks = "1 months", date_labels = "%b") +
             scale_fill_brewer(palette="Reds"))
+
+
 
 
 ```
