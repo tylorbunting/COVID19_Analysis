@@ -30,9 +30,9 @@ Get_Total_Country <- function(local, data_table) {
 
 # 1. EXTRACT RAW DATA FROM GITHUB -----------------------------------------
 # data sources https://github.com/CSSEGISandData/COVID-19
-Data_Co <- read_csv(content(GET("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv")))
+Data_Co <- read_csv(content(GET("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")))
 Data_Re <- read_csv(content(GET("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv")))
-Data_De <- read_csv(content(GET("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv")))
+Data_De <- read_csv(content(GET("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")))
 
 
 
@@ -47,13 +47,17 @@ Data_Re <- Data_Re %>%
 Data_De <- Data_De %>%
   mutate(Case_Type = "Deaths")
 
+# transform the data with a gath
+Data_Co <- gather(data = Data_Co, key = dates, value = count, -`Province/State`, -`Country/Region`, -Lat, -Long, -Case_Type)
+
+Data_Re <- gather(data = Data_Re, key = dates, value = count, -`Province/State`, -`Country/Region`, -Lat, -Long, -Case_Type)
+
+Data_De <- gather(data = Data_De, key = dates, value = count, -`Province/State`, -`Country/Region`, -Lat, -Long, -Case_Type)
+
 # merge all tables
 Data <- rbind.data.frame(Data_Co,
                          Data_Re,
                          Data_De)
-
-# transform the data with a gath
-Data <- gather(data = Data, key = dates, value = count, -`Province/State`, -`Country/Region`, -Lat, -Long, -Case_Type)
 
 # tramsforms the names of columns
 names(Data) <- c("Location", "Country", "Lat", "Long", "Case_Type", "Dates", "Count")
@@ -102,7 +106,7 @@ Data_Australia_Max_Locations_De <- map_df(unique(Data_Australia_De$Location), Ge
 
 # 3.2 GLOBAL TABLES -------------------------------------------------------
 
-Data_Global <- Data 
+Data_Global <- Data
 
 Data_Global_Co <- Data_Global %>%
   filter(Case_Type == "Confirmed")

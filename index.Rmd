@@ -44,7 +44,6 @@ valueBox(sum(Data_Australia_Max_Locations_Co$Count),
 
 ```
 
-
 ### Recovered
 
 ```{r}
@@ -65,7 +64,7 @@ valueBox(sum(Data_Australia_Max_Locations_De$Count),
 ### Last Updated
 
 ```{r}
-valueBox(format(max(Data_Australia$Dates), "%b %d"), 
+valueBox(format(max(Data_Australia$Dates), "%Y/%m/%d"), 
          icon = "fa-clock",
          color = "primary")
 ```
@@ -92,7 +91,7 @@ ggplotly(Data_Australia_Max_Locations_Co %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 20) +
+    geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 50) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
     scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
   
@@ -118,7 +117,7 @@ ggplotly(Data_Australia_Max_Locations_Re %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Australia_Max_Locations_Re$Count, nudge_y = 20) +
+    geom_text(label = Data_Australia_Max_Locations_Re$Count, nudge_y = 50) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
     scale_fill_manual(values = brewer.pal(9, "Greens")[3:9]))
   
@@ -144,17 +143,17 @@ ggplotly(Data_Australia_Max_Locations_De %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Australia_Max_Locations_De$Count, nudge_y = 20) +
+    geom_text(label = Data_Australia_Max_Locations_De$Count, nudge_y = 50) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
     scale_fill_brewer(palette="Reds"))
   
 
 ```
 
-Row {data-height=550}
+Row {data-height=550 .tabset .tabset-fade}
 -----------------------------------------------------------------------
 
-### Confirmed Cases Overtime {.no-mobile}
+### Confirmed Cases Overtime
 
 ```{r}
 
@@ -173,13 +172,14 @@ ggplotly(Data_Australia_Co %>%
           labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
           theme(legend.position = "none") +
           facet_wrap(vars(Location)) +
+          scale_x_date(date_breaks = "1 months", date_labels = "%b") +
           scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
 
 
 ```
 
 
-### Confirmed Cases Overtime {.mobile}
+### Recovered Cases Overtime
 
 ```{r}
 
@@ -187,22 +187,51 @@ Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
       arrange(desc(Count)) %>%
       head(No_of_Countrys)
 
-Data_Australia_Co <- Data_Australia_Co %>%
+Data_Australia_Re <- Data_Australia_Re %>%
       filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
 
-ggplotly(Data_Australia_Co %>%
-                    ggplot(aes(x = Dates, y = Count, fill = Location)) +
-                    geom_area(size = 1L) +
-                    scale_fill_hue() +
-                    theme_minimal() +
-                    labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
-                    theme(legend.position = "none") +
-                    facet_wrap(vars(Location)) +
-                    scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
+ggplotly(Data_Australia_Re %>%
+            group_by(Location, Dates) %>%
+            summarise(Count = sum(Count)) %>%            
+            ggplot(aes(x = Dates, y = Count, fill = Location)) +
+            geom_area(size = 1L) +
+            scale_fill_hue() +
+            theme_minimal() +
+            labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
+            theme(legend.position = "none") +
+            facet_wrap(vars(Location)) +
+            scale_x_date(date_breaks = "1 months", date_labels = "%b") +
+            scale_fill_manual(values = brewer.pal(9, "Greens")[3:9]))
 
 
 ```
 
+
+### Death Cases Overtime
+
+```{r}
+
+Data_Australia_Max_Locations_Co <- Data_Australia_Max_Locations_Co %>%
+      arrange(desc(Count)) %>%
+      head(No_of_Countrys)
+
+Data_Australia_De <- Data_Australia_De %>%
+      filter(Location %in% unique(Data_Australia_Max_Locations_Co$Location))
+
+ggplotly(Data_Australia_De %>%
+            group_by(Location, Dates) %>%
+            summarise(Count = sum(Count)) %>%            
+            ggplot(aes(x = Dates, y = Count, fill = Location)) +
+            geom_area(size = 1L) +
+            scale_fill_hue() +
+            theme_minimal() +
+            labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
+            theme(legend.position = "none") +
+            facet_wrap(vars(Location)) +
+            scale_x_date(date_breaks = "1 months", date_labels = "%b") +
+            scale_fill_brewer(palette="Reds"))
+
+```
 
 
 Global Overview
@@ -245,11 +274,10 @@ valueBox(sum(Data_Global_Max_Country_De$Count, na.rm = TRUE),
 ### Last Updated
 
 ```{r}
-valueBox(format(max(Data_Global$Dates), "%b %d"), 
+valueBox(format(max(Data_Global$Dates), "%Y/%m/%d"), 
          icon = "fa-clock",
          color = "primary")
 ```
-
 
 Row {data-height=350 .tabset .tabset-fade}
 -----------------------------------------------------------------------
@@ -415,5 +443,3 @@ ggplotly(Data_Global_De %>%
 
 
 ```
-
-
