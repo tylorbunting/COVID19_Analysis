@@ -91,7 +91,7 @@ ggplotly(Data_Australia_Max_Locations_Co %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 50) +
+    geom_text(label = Data_Australia_Max_Locations_Co$Count, nudge_y = 100) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
     scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
   
@@ -117,7 +117,7 @@ ggplotly(Data_Australia_Max_Locations_Re %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Australia_Max_Locations_Re$Count, nudge_y = 50) +
+    geom_text(label = Data_Australia_Max_Locations_Re$Count, nudge_y = 100) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
     scale_fill_manual(values = brewer.pal(9, "Greens")[3:9]))
   
@@ -143,7 +143,7 @@ ggplotly(Data_Australia_Max_Locations_De %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Locations in Australia"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Australia_Max_Locations_De$Count, nudge_y = 50) +
+    geom_text(label = Data_Australia_Max_Locations_De$Count, nudge_y = 100) +
     scale_y_continuous(limits = c(0, max(Data_Australia_Co$Count) + (0.10 * max(Data_Australia_Co$Count)))) +
     scale_fill_brewer(palette="Reds"))
   
@@ -297,7 +297,7 @@ ggplotly(Data_Global_Max_Country_Co %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Global_Max_Country_Co$Count, nudge_y = 5000) +
+    geom_text(label = Data_Global_Max_Country_Co$Count, nudge_y = 8000) +
     scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
     scale_fill_manual(values = brewer.pal(9, "Blues")[3:9]))
 
@@ -322,7 +322,7 @@ ggplotly(Data_Global_Max_Country_Re %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Global_Max_Country_Re$Count, nudge_y = 5000) +
+    geom_text(label = Data_Global_Max_Country_Re$Count, nudge_y = 8000) +
     scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
     scale_fill_manual(values = brewer.pal(9, "Greens")[3:9]))
   
@@ -349,7 +349,7 @@ ggplotly(Data_Global_Max_Country_De %>%
     theme_minimal() +
     labs(title = "", x = paste0("Top ", No_of_Countrys," Highest Countries Globally"), y = "") +
     theme(legend.position = "none") +
-    geom_text(label = Data_Global_Max_Country_De$Count, nudge_y = 5000) +
+    geom_text(label = Data_Global_Max_Country_De$Count, nudge_y = 8000) +
     scale_y_continuous(limits = c(0, max(Data_Global_Max_Country_Co$Count) + (0.10 * max(Data_Global_Max_Country_Co$Count)))) +
     scale_fill_brewer(palette="Reds"))
   
