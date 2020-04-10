@@ -15,16 +15,19 @@ library("flexdashboard")
 library("plotly")
 library("readr")
 library("httr")
-library("tidyr")
+library("tidyverse")
 library("dplyr")
 library("lubridate")
 library("ggplot2")
 library("purrr")
 library("RColorBrewer")
+library("rmarkdown")
+library("shiny")
 source("Extract_Data.R")
 
-No_of_Countrys <- 6
+tags$head(includeHTML("header_content.html"))
 
+No_of_Countrys <- 6
 
 ```
 
