@@ -13,7 +13,7 @@ setwd(working_directory)
 workdir(working_directory)
 
 # 1. CREATE GITHUB.R FILE -------------------------------------------------
-print(paste0(format(Now(), "%Y-%m-%d %H:%M:%S"), ": Creating GitHub.R file"))
+print(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Creating GitHub.R file"))
 FileConnection <- file(GitHub_filepath)
 close(FileConnection)
 rm(FileConnection)
