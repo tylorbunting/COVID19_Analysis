@@ -7,7 +7,7 @@ library("keyring")
 # instructions here https://rdrr.io/cran/keyring/man/backend_wincred.html 
 # and more on the keyring package here https://www.r-bloggers.com/how-to-hide-a-password-in-r-with-the-keyring-package/
 # setup working directory
-working_directory <- "C:/Users/tbun2893/Documents/GitHub/COVID19_Analysis"
+working_directory <- "U:/COVID19_Analysis"
 GitHub_filepath <- paste0(working_directory, "/")
 setwd(working_directory)
 workdir(working_directory)

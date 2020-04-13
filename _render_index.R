@@ -15,7 +15,7 @@ library("shiny")
 # https://stackoverflow.com/questions/28432607/pandoc-version-1-12-3-or-higher-is-required-and-was-not-found-r-shiny
 Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/bin/pandoc")
 # setup the file path for the index.Rmd file
-index_filepath <- "C:/Users/tbun2893/Documents/GitHub/COVID19_Analysis/index.Rmd"
+index_filepath <- "U:/COVID19_Analysis/index.Rmd"
 
 # 1. UPDATE FLEXDASHBOARD AND GET NEW DATA --------------------------------
 writeLines(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Updating flex dashboard"))
