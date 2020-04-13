@@ -13,23 +13,23 @@ setwd(working_directory)
 workdir(working_directory)
 
 # 1. CREATE GITHUB.R FILE -------------------------------------------------
-writeLines(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Creating GitHub.R file"))
+print(paste0(format(Now(), "%Y-%m-%d %H:%M:%S"), ": Creating GitHub.R file"))
 FileConnection <- file(GitHub_filepath)
 close(FileConnection)
 rm(FileConnection)
 
 # 2. STAGE CHANGES --------------------------------------------------------
-writeLines(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Staging changes"))
+print(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Staging changes"))
 add(repo = getwd(), path = GitHub_filepath)
 
 # 3. COMMIT CHANGES -------------------------------------------------------
-writeLines(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Comitting changes"))
+print(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Comitting changes"))
 commit(repo = getwd(), message = "Updating data")
 
 pull(repo = getwd(), credentials = cred_user_pass(username = "buntoss@gmail.com", password = key_get("GITHUB_USER", "buntoss@gmail.com")))
 
 # 4. PUSH CHANGES ---------------------------------------------------------
-writeLines(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Pushing changes"))
+print(paste0(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ": Pushing changes"))
 push(object = getwd(), credentials = cred_user_pass(username = "buntoss@gmail.com", password = key_get("GITHUB_USER", "buntoss@gmail.com")))
 
 
